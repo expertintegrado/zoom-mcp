@@ -1,0 +1,53 @@
+{
+  "name": "@expertintegrado/zoom-mcp",
+  "version": "1.0.0",
+  "description": "Servidor MCP oficial da Expert Integrado para Zoom Team Chat.",
+  "type": "module",
+  "main": "index.js",
+  "bin": {
+    "zoom-mcp": "index.js"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "auth": "node auth.js"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/expertintegrado/zoom-mcp.git"
+  },
+  "bugs": {
+    "url": "https://github.com/expertintegrado/zoom-mcp/issues"
+  },
+  "homepage": "https://github.com/expertintegrado/zoom-mcp#readme",
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "zoom",
+    "zoom-team-chat",
+    "claude",
+    "claude-code",
+    "anthropic",
+    "expert-integrado"
+  ],
+  "author": "Expert Integrado",
+  "license": "MIT",
+  "files": [
+    "index.js",
+    "auth.js",
+    "src/",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0",
+    "open": "^10.1.0",
+    "zod": "^3.23.0"
+  }
+}
