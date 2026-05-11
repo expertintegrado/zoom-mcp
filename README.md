@@ -1,75 +1,119 @@
 # Zoom MCP — Expert Integrado
 
-Servidor MCP oficial da Expert Integrado para o **Zoom Team Chat**.
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![npm version](https://img.shields.io/npm/v/@expertintegrado/zoom-mcp.svg)](https://www.npmjs.com/package/@expertintegrado/zoom-mcp)
 
-Conecta o Claude Code ao seu Zoom: envie mensagens, gerencie canais, busque contatos, acesse threads e muito mais — tudo por linguagem natural.
+Conecta o seu **Zoom Team Chat** ao **Claude Code**. Depois de instalar, você pede coisas como *"envia uma mensagem no canal #geral"*, *"lista os meus canais do Zoom"*, *"quem são os membros do canal X?"* — e ele faz, direto no seu Zoom.
 
-## O que você pode fazer
-
-- **Canais:** listar, criar, buscar, gerenciar membros
-- **Mensagens:** enviar, editar, deletar, reagir, responder em thread
-- **Arquivos:** enviar e baixar arquivos/imagens
-- **Contatos:** listar e buscar contatos da empresa
-- **Bookmarks e mensagens fixadas:** acessar favoritos e pins de canais
-- **Espaços:** listar Zoom Spaces
-
-22 tools no total. Veja a lista completa em [docs/TOOLS.md](docs/TOOLS.md).
+> A instalação é guiada pelo próprio Claude Code. Você só cola um prompt e passa suas credenciais quando ele pedir. Não precisa editar arquivo, não precisa mexer em JSON.
 
 ---
 
-## Instalação
+## Passo 1 — Instale o que precisa
 
-### Pré-requisitos
+Baixe e instale (uma vez só, na sua máquina):
 
-- [Node.js 18+](https://nodejs.org/)
-- [Claude Code](https://claude.ai/code) instalado
+- [Node.js 18 ou superior](https://nodejs.org/) — baixe e clique "Avançar" até o fim. **Reinicie o computador** depois.
+- [Claude Code](https://claude.ai/download) — o aplicativo oficial da Anthropic.
 
-### Passo 1 — Crie o app no Zoom Marketplace
+## Passo 2 — Crie o app no Zoom Marketplace
 
-Cole este prompt no Claude Code para receber um guia passo a passo interativo:
+Você precisa de um **Client ID** e um **Client Secret** do Zoom. Cole este prompt no Claude Code para receber um guia passo a passo interativo:
 
-```
-Me ajude a criar um app OAuth no Zoom Marketplace para usar o zoom-mcp da Expert Integrado.
-```
+````text
+Me guie para criar um app OAuth no Zoom Marketplace para usar o zoom-mcp
+da Expert Integrado. Abra o https://marketplace.zoom.us no meu navegador
+e me instrua sobre: criar app tipo "User-managed OAuth", configurar o
+Redirect URI como http://localhost:4488/callback, adicionar os escopos
+necessários e copiar o Client ID e o Client Secret.
+````
 
-O Claude vai te guiar: acesse [marketplace.zoom.us](https://marketplace.zoom.us), crie um app **User-managed OAuth**, configure o Redirect URI e copie as credenciais.
+O Claude vai abrir o Marketplace e te guiar até você ter as duas credenciais em mãos.
 
-> **Redirect URI a configurar:** `http://localhost:4488/callback`
+> **Cuidado:** essas credenciais dão acesso ao SEU Zoom. Não compartilhe, não poste em grupo. Cada pessoa deve criar o próprio app.
 
-### Passo 2 — Adicione o MCP ao Claude Code
+## Passo 3 — Peça pro Claude Code instalar
 
-Cole este prompt no Claude Code (substituindo pelos valores reais):
+Com o **Client ID** e o **Client Secret** em mãos, abra o **Claude Code** e cole o prompt abaixo no chat (use o botão de copiar no canto do bloco):
 
-```
-Adicione o MCP do Zoom com o comando:
-claude mcp add zoom -s user -e ZOOM_CLIENT_ID=<seu_client_id> -e ZOOM_CLIENT_SECRET=<seu_client_secret> -- npx -y @expertintegrado/zoom-mcp
-```
+````text
+Você é um instalador automático do MCP do Zoom da Expert Integrado.
+Siga esta sequência sem pular etapas:
 
-### Passo 3 — Autorize sua conta Zoom
+1. Me pergunte no chat qual é o meu ZOOM_CLIENT_ID e qual é o meu
+   ZOOM_CLIENT_SECRET (os dois separados), e aguarde minha resposta
+   antes de continuar. Não use valores de exemplo — precisam ser as
+   credenciais reais que eu vou colar.
 
-Após adicionar o MCP, execute no terminal na pasta onde o MCP foi instalado:
+2. Com as credenciais em mãos, rode no terminal exatamente:
 
-```bash
-ZOOM_CLIENT_ID=<seu_client_id> ZOOM_CLIENT_SECRET=<seu_client_secret> npx -y @expertintegrado/zoom-mcp auth
-```
+   claude mcp add zoom -s user \
+     -e ZOOM_CLIENT_ID=<CLIENT_ID_QUE_EU_PASSEI> \
+     -e ZOOM_CLIENT_SECRET=<CLIENT_SECRET_QUE_EU_PASSEI> \
+     -- npx -y @expertintegrado/zoom-mcp
 
-O browser vai abrir — faça login na sua conta Zoom e autorize. Isso é feito **uma única vez**.
+   Substituindo pelos valores que eu respondi no passo 1.
 
-### Passo 4 — Teste
+3. Em seguida rode o comando de autorização OAuth:
 
-Abra o Claude Code e pergunte:
+   ZOOM_CLIENT_ID=<CLIENT_ID_QUE_EU_PASSEI> ZOOM_CLIENT_SECRET=<CLIENT_SECRET_QUE_EU_PASSEI> npx -y @expertintegrado/zoom-mcp auth
 
-```
-zoom_status — verifique se meu Zoom está conectado
-```
+   Isso vai abrir o navegador. Avise-me quando o navegador abrir e
+   aguarde eu confirmar que autorizei minha conta Zoom.
+
+4. Confirme que a autorização funcionou e me avise para encerrar
+   e reabrir o Claude Code para ativar o MCP.
+````
+
+O Claude Code vai:
+
+1. Te perguntar o Client ID e o Client Secret → você cola os que pegou no Passo 2
+2. Rodar o comando de configuração automaticamente
+3. Abrir o navegador para você autorizar sua conta Zoom
+4. Te avisar pra reiniciar
+
+Quando ele pedir, **feche e abra o Claude Code** (feche o app inteiro, não só a aba).
+
+## Passo 4 — Teste
+
+Com o Claude Code reaberto, pergunte:
+
+> Liste meus canais do Zoom.
+
+Se ele responder com os canais, tá funcionando. 🎉
 
 ---
+
+## Atualizando o MCP
+
+Quando sair versão nova, o `npx` pega automaticamente na próxima inicialização — não precisa fazer nada. Se quiser forçar agora, peça ao Claude Code:
+
+> Limpa o cache do npx do Zoom MCP (roda `npm cache clean --force`) e me avisa pra reiniciar o Claude Code.
+
+## Não funcionou?
+
+Cole isso no Claude Code:
+
+> O MCP do Zoom da Expert Integrado não está funcionando. Roda `/mcp` pra verificar se ele tá listado, confere se o Node.js 18+ está instalado, e me ajuda a diagnosticar. Se precisar, consulta o guia em `https://github.com/expertintegrado/zoom-mcp/blob/main/docs/TROUBLESHOOTING.md`.
+
+Se mesmo assim não rolar, [abra uma issue](https://github.com/expertintegrado/zoom-mcp/issues/new/choose) contando o que aconteceu.
+
+## O que dá pra fazer
+
+Exemplos depois de instalado:
+
+- *"Envia uma mensagem no canal #marketing dizendo que a reunião foi remarcada"*
+- *"Lista todos os canais que faço parte"*
+- *"Quem são os membros do canal #vendas?"*
+- *"Mostra as últimas mensagens do canal #geral"*
+- *"Reage com 👍 na última mensagem do canal #produto"*
+- *"Busca o canal chamado 'projetos'"*
+
+Lista completa de comandos: [docs/TOOLS.md](docs/TOOLS.md)
 
 ## Instalação técnica (avançada)
 
 Ver [INSTALL.md](INSTALL.md) para modos alternativos: clone local, instalação global com `npm -g`.
-
----
 
 ## Segurança
 
@@ -77,8 +121,10 @@ Ver [INSTALL.md](INSTALL.md) para modos alternativos: clone local, instalação 
 - Nenhuma credencial é enviada para servidores da Expert Integrado
 - O arquivo `tokens.json` está no `.gitignore` — nunca é commitado
 
----
+## Contribuindo
 
-## Suporte
+Quer reportar um bug, sugerir uma melhoria ou contribuir com código? Veja [CONTRIBUTING.md](CONTRIBUTING.md) e, para o procedimento de release, [RELEASING.md](RELEASING.md).
 
-Abra uma [issue no GitHub](https://github.com/expertintegrado/zoom-mcp/issues).
+## Licença
+
+[MIT](LICENSE) © Expert Integrado

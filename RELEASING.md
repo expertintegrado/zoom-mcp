@@ -30,11 +30,14 @@ O comando acima:
 - Cria commit com o novo número de versão no `package.json`
 - Cria tag git `vX.Y.Z`
 
-Em seguida, faça o push da tag:
+Em seguida, faça o push do commit e da tag específica:
 
 ```bash
-git push && git push --tags
+git push
+git push origin "v$(node -p 'require("./package.json").version')"
 ```
+
+> **Por que não `git push --tags`?** Esse comando envia **todas** as tags locais, o que pode disparar workflows indesejados se houver tags antigas não publicadas. O comando acima envia só a tag da versão atual.
 
 O workflow `.github/workflows/release.yml` dispara automaticamente:
 1. Publica no npm (`@expertintegrado/zoom-mcp`)
@@ -43,8 +46,8 @@ O workflow `.github/workflows/release.yml` dispara automaticamente:
 ## Verificação pós-release
 
 ```bash
-# Ver status do workflow
-gh run list -R expertintegrado/zoom-mcp --limit 3
+# Acompanhar o workflow em tempo real (aguarda e mostra se passou ou falhou)
+gh run watch --exit-status -R expertintegrado/zoom-mcp
 
 # Conferir publicação no npm
 npm view @expertintegrado/zoom-mcp version
@@ -53,16 +56,30 @@ npm view @expertintegrado/zoom-mcp version
 ## Falhas comuns
 
 ### "403 Forbidden" no npm publish
-O secret `NPM_TOKEN` expirou ou foi revogado. Gere novo token no npm com **Bypass 2FA** marcado e atualize o secret:
+
+O secret `NPM_TOKEN` expirou ou foi revogado. Gere novo Granular Access Token no npm com **Bypass 2FA** marcado, escopo Read/Write em `@expertintegrado/zoom-mcp`, e atualize o secret:
+
 ```bash
 gh secret set NPM_TOKEN -R expertintegrado/zoom-mcp
 ```
 
+Depois dispare o workflow manualmente sem precisar recriar a tag:
+
+```bash
+gh workflow run release.yml -R expertintegrado/zoom-mcp
+```
+
 ### "Version already published"
-A tag foi recriada. Não duplique publicações — bump a versão e faça nova tag.
+
+A tag foi recriada para a mesma versão. Não duplique publicações — bump a versão com `npm version patch` e faça nova tag.
 
 ### Workflow não dispara
-Certifique-se que o push foi com `--tags`. Um `git push` sem a flag não envia as tags.
+
+Certifique-se que o push da tag foi feito com o comando exato acima. Um `git push` simples não envia tags.
+
+### Push da tag rejeitado ("tag already exists")
+
+A tag já existe no remote (foi criada por outro push ou manualmente). Não force-push tags — bump a versão e crie uma nova.
 
 ## Atualizar NPM_TOKEN (rotação)
 
