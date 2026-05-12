@@ -29,29 +29,18 @@ Siga esta sequência sem pular etapas:
    automaticamente? Ou prefere fazer manualmente com minha orientação?"
    Aguarde minha resposta antes de continuar.
 
-2. Com base na minha resposta:
+2. Com base na minha resposta, siga o guia detalhado em:
+   https://github.com/expertintegrado/zoom-mcp/blob/main/docs/ZOOM_APP_SETUP.md
 
-   OPÇÃO AUTOMÁTICA (se eu disser que tenho o Claude in Chrome e quero
-   que você faça):
-   - Abra o https://marketplace.zoom.us no navegador
-   - Faça o login se necessário
-   - Crie um app do tipo "User-managed OAuth"
-   - Configure o Redirect URI como: http://localhost:4488/callback
-   - Adicione os escopos: chat_channel:read:admin, chat_channel:write:admin,
-     chat_message:read, chat_message:write, chat_message:read:admin,
-     chat_message:write:admin, chat_contact:read:admin,
-     chat_channel:read:list_sessions, chat_message:read:local_storage,
-     chat_message:write:local_storage, chat_message:read:bot,
-     chat_message:write:bot, chat_bookmark:read:admin,
-     chat_emoji:read:admin, chat_message:read:master
-   - Copie o Client ID e o Client Secret e me informe os dois valores
+   OPÇÃO AUTOMÁTICA (Claude in Chrome):
+   - Leia o guia acima e execute cada passo no navegador
+   - Ao final, informe o Client ID e o Client Secret que aparecerem na
+     tela App Credentials
 
-   OPÇÃO MANUAL (se eu disser que prefiro fazer manualmente):
-   - Me instrua passo a passo: acessar https://marketplace.zoom.us,
-     criar app tipo "User-managed OAuth", configurar Redirect URI como
-     http://localhost:4488/callback, adicionar os escopos listados acima,
-     e copiar o Client ID e o Client Secret
-   - Aguarde eu confirmar que tenho os dois valores antes de continuar
+   OPÇÃO MANUAL (orientação passo a passo):
+   - Leia o guia acima e me instrua a seguir cada passo
+   - Aguarde eu confirmar que tenho o Client ID e o Client Secret
+     antes de continuar
 
 3. Com o Client ID e o Client Secret em mãos (de qualquer opção acima),
    rode no terminal exatamente:
