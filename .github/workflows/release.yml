@@ -22,6 +22,18 @@ jobs:
       - name: Install dependencies
         run: npm install --no-audit --no-fund
 
+      - name: Debug auth
+        run: |
+          if [ -z "$NODE_AUTH_TOKEN" ]; then
+            echo "NODE_AUTH_TOKEN está VAZIO — secret não chegou"
+          else
+            echo "NODE_AUTH_TOKEN está presente (${#NODE_AUTH_TOKEN} chars)"
+          fi
+          echo "Conteúdo do .npmrc:"
+          cat .npmrc || echo "(arquivo .npmrc não encontrado)"
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
       - name: Publish to npm
         run: npm publish --access public
         env:
