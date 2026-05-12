@@ -5,7 +5,7 @@
 
 Conecta o seu **Zoom Team Chat** ao **Claude Code**. Depois de instalar, você pede coisas como *"envia uma mensagem no canal #geral"*, *"lista os meus canais do Zoom"*, *"quem são os membros do canal X?"* — e ele faz, direto no seu Zoom.
 
-> A instalação é guiada pelo próprio Claude Code. Você só cola um prompt e passa suas credenciais quando ele pedir. Não precisa editar arquivo, não precisa mexer em JSON.
+> A instalação é guiada pelo próprio Claude Code. Você só cola um prompt e ele cuida do resto. Não precisa editar arquivo, não precisa mexer em JSON.
 
 ---
 
@@ -16,65 +16,69 @@ Baixe e instale (uma vez só, na sua máquina):
 - [Node.js 18 ou superior](https://nodejs.org/) — baixe e clique "Avançar" até o fim. **Reinicie o computador** depois.
 - [Claude Code](https://claude.ai/download) — o aplicativo oficial da Anthropic.
 
-## Passo 2 — Crie o app no Zoom Marketplace
+## Passo 2 — Peça pro Claude Code instalar
 
-Você precisa de um **Client ID** e um **Client Secret** do Zoom. Cole este prompt no Claude Code para receber um guia passo a passo interativo:
-
-````text
-Me guie para criar um app OAuth no Zoom Marketplace para usar o zoom-mcp
-da Expert Integrado. Abra o https://marketplace.zoom.us no meu navegador
-e me instrua sobre: criar app tipo "User-managed OAuth", configurar o
-Redirect URI como http://localhost:4488/callback, adicionar os escopos
-necessários e copiar o Client ID e o Client Secret.
-````
-
-O Claude vai abrir o Marketplace e te guiar até você ter as duas credenciais em mãos.
-
-> **Cuidado:** essas credenciais dão acesso ao SEU Zoom. Não compartilhe, não poste em grupo. Cada pessoa deve criar o próprio app.
-
-## Passo 3 — Peça pro Claude Code instalar
-
-Com o **Client ID** e o **Client Secret** em mãos, abra o **Claude Code** e cole o prompt abaixo no chat (use o botão de copiar no canto do bloco):
+Abra o **Claude Code** e cole o prompt abaixo no chat (use o botão de copiar no canto do bloco):
 
 ````text
 Você é um instalador automático do MCP do Zoom da Expert Integrado.
 Siga esta sequência sem pular etapas:
 
-1. Me pergunte no chat qual é o meu ZOOM_CLIENT_ID e qual é o meu
-   ZOOM_CLIENT_SECRET (os dois separados), e aguarde minha resposta
-   antes de continuar. Não use valores de exemplo — precisam ser as
-   credenciais reais que eu vou colar.
+1. Me pergunte: "Você tem a extensão Claude in Chrome instalada no seu
+   navegador e quer que eu crie o app no Zoom Marketplace por você
+   automaticamente? Ou prefere fazer manualmente com minha orientação?"
+   Aguarde minha resposta antes de continuar.
 
-2. Com as credenciais em mãos, rode no terminal exatamente:
+2. Com base na minha resposta:
+
+   OPÇÃO AUTOMÁTICA (se eu disser que tenho o Claude in Chrome e quero
+   que você faça):
+   - Abra o https://marketplace.zoom.us no navegador
+   - Faça o login se necessário
+   - Crie um app do tipo "User-managed OAuth"
+   - Configure o Redirect URI como: http://localhost:4488/callback
+   - Adicione os escopos: chat_channel:read:admin, chat_channel:write:admin,
+     chat_message:read, chat_message:write, chat_message:read:admin,
+     chat_message:write:admin, chat_contact:read:admin,
+     chat_channel:read:list_sessions, chat_message:read:local_storage,
+     chat_message:write:local_storage, chat_message:read:bot,
+     chat_message:write:bot, chat_bookmark:read:admin,
+     chat_emoji:read:admin, chat_message:read:master
+   - Copie o Client ID e o Client Secret e me informe os dois valores
+
+   OPÇÃO MANUAL (se eu disser que prefiro fazer manualmente):
+   - Me instrua passo a passo: acessar https://marketplace.zoom.us,
+     criar app tipo "User-managed OAuth", configurar Redirect URI como
+     http://localhost:4488/callback, adicionar os escopos listados acima,
+     e copiar o Client ID e o Client Secret
+   - Aguarde eu confirmar que tenho os dois valores antes de continuar
+
+3. Com o Client ID e o Client Secret em mãos (de qualquer opção acima),
+   rode no terminal exatamente:
 
    claude mcp add zoom -s user \
-     -e ZOOM_CLIENT_ID=<CLIENT_ID_QUE_EU_PASSEI> \
-     -e ZOOM_CLIENT_SECRET=<CLIENT_SECRET_QUE_EU_PASSEI> \
+     -e ZOOM_CLIENT_ID=<CLIENT_ID> \
+     -e ZOOM_CLIENT_SECRET=<CLIENT_SECRET> \
      -- npx -y @expertintegrado/zoom-mcp
 
-   Substituindo pelos valores que eu respondi no passo 1.
+   Substituindo pelos valores reais.
 
-3. Em seguida rode o comando de autorização OAuth:
+4. Em seguida rode o comando de autorização OAuth:
 
-   ZOOM_CLIENT_ID=<CLIENT_ID_QUE_EU_PASSEI> ZOOM_CLIENT_SECRET=<CLIENT_SECRET_QUE_EU_PASSEI> npx -y @expertintegrado/zoom-mcp auth
+   ZOOM_CLIENT_ID=<CLIENT_ID> ZOOM_CLIENT_SECRET=<CLIENT_SECRET> npx -y @expertintegrado/zoom-mcp auth
 
    Isso vai abrir o navegador. Avise-me quando o navegador abrir e
    aguarde eu confirmar que autorizei minha conta Zoom.
 
-4. Confirme que a autorização funcionou e me avise para encerrar
+5. Confirme que a autorização funcionou e me avise para encerrar
    e reabrir o Claude Code para ativar o MCP.
 ````
 
-O Claude Code vai:
-
-1. Te perguntar o Client ID e o Client Secret → você cola os que pegou no Passo 2
-2. Rodar o comando de configuração automaticamente
-3. Abrir o navegador para você autorizar sua conta Zoom
-4. Te avisar pra reiniciar
+> **Cuidado:** as credenciais do Zoom dão acesso ao SEU Zoom. Não compartilhe, não poste em grupo. Cada pessoa deve criar o próprio app.
 
 Quando ele pedir, **feche e abra o Claude Code** (feche o app inteiro, não só a aba).
 
-## Passo 4 — Teste
+## Passo 3 — Teste
 
 Com o Claude Code reaberto, pergunte:
 
