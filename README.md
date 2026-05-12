@@ -52,12 +52,25 @@ Siga esta sequência sem pular etapas:
 
    Substituindo pelos valores reais.
 
-4. Em seguida rode o comando de autorização OAuth:
+4. Em seguida rode o comando de autorização OAuth. Detecte o sistema
+   operacional do usuário e use o comando correto:
 
+   **Linux/Mac:**
    ZOOM_CLIENT_ID=<CLIENT_ID> ZOOM_CLIENT_SECRET=<CLIENT_SECRET> npx -y @expertintegrado/zoom-mcp auth
 
-   Isso vai abrir o navegador. Avise-me quando o navegador abrir e
-   aguarde eu confirmar que autorizei minha conta Zoom.
+   **Windows (PowerShell):**
+   $env:ZOOM_CLIENT_ID="<CLIENT_ID>"; $env:ZOOM_CLIENT_SECRET="<CLIENT_SECRET>"; npx -y @expertintegrado/zoom-mcp auth
+
+   **Windows (CMD):**
+   set ZOOM_CLIENT_ID=<CLIENT_ID> && set ZOOM_CLIENT_SECRET=<CLIENT_SECRET> && npx -y @expertintegrado/zoom-mcp auth
+
+   Se nenhum funcionar, instale o pacote em uma pasta temporária e rode
+   o auth.js diretamente:
+   mkdir %TEMP%\zoom-auth && cd %TEMP%\zoom-auth && npm install @expertintegrado/zoom-mcp
+   set ZOOM_CLIENT_ID=<CLIENT_ID> && set ZOOM_CLIENT_SECRET=<CLIENT_SECRET> && node node_modules/@expertintegrado/zoom-mcp/auth.js
+
+   O navegador vai abrir. Aguarde o usuário confirmar que autorizou
+   a conta Zoom antes de continuar.
 
 5. Confirme que a autorização funcionou e me avise para encerrar
    e reabrir o Claude Code para ativar o MCP.

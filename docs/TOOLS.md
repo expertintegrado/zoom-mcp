@@ -1,6 +1,6 @@
 # Referência de Tools — Zoom MCP
 
-22 tools organizadas por área.
+18 tools organizadas por área.
 
 ## Status / Onboarding
 
@@ -38,16 +38,7 @@
 | Tool | Descrição |
 |------|-----------|
 | `zoom_list_contacts` | Lista contatos (empresa ou externos) |
-| `zoom_search_company_contacts` | Busca contatos por nome/email via API server-side |
 | `zoom_list_sessions` | Lista conversas recentes (canais + DMs) |
-
-## Bookmarks, Mensagens Fixadas e Espaços
-
-| Tool | Descrição |
-|------|-----------|
-| `zoom_list_bookmarks` | Lista bookmarks do usuário (ou de um canal) |
-| `zoom_list_pinned_messages` | Lista mensagens fixadas de um canal |
-| `zoom_list_shared_spaces` | Lista Zoom Spaces do usuário |
 
 ---
 
@@ -74,10 +65,6 @@ team_chat:read:list_user_sessions
 team_chat:read:list_custom_emojis
 team_chat:write:files
 team_chat:write:message_files
-team_chat:read:bookmark
-team_chat:write:bookmark
-team_chat:read:list_pinned_messages
 user:read:user
 user:read:email
-contact:read:list_contacts
 ```

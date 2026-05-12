@@ -29,12 +29,8 @@ export const SCOPES = [
   "team_chat:read:list_custom_emojis",
   "team_chat:write:files",
   "team_chat:write:message_files",
-  "team_chat:read:bookmark",
-  "team_chat:write:bookmark",
-  "team_chat:read:list_pinned_messages",
   "user:read:user",
   "user:read:email",
-  "contact:read:list_contacts",
 ];
 
 export const ONBOARDING_MSG =

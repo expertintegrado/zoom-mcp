@@ -25,13 +25,7 @@ import { downloadFile, downloadFileSchema } from "./src/tools/download-file.js";
 
 // Contatos e sessões
 import { listContacts, listContactsSchema } from "./src/tools/list-contacts.js";
-import { searchCompanyContacts, searchCompanyContactsSchema } from "./src/tools/search-company-contacts.js";
 import { listSessions, listSessionsSchema } from "./src/tools/list-sessions.js";
-
-// Bookmarks, pinados e espaços
-import { listBookmarks, listBookmarksSchema } from "./src/tools/list-bookmarks.js";
-import { listPinnedMessages, listPinnedMessagesSchema } from "./src/tools/list-pinned-messages.js";
-import { listSharedSpaces, listSharedSpacesSchema } from "./src/tools/list-shared-spaces.js";
 
 // Status / onboarding
 import { status, statusSchema } from "./src/tools/status.js";
@@ -142,27 +136,9 @@ tool("zoom_list_contacts",
   "Lista os contatos do Zoom Team Chat do usuário. Por padrão lista contatos da mesma organização (company). Use type='external' para contatos externos.",
   listContactsSchema, listContacts);
 
-tool("zoom_search_company_contacts",
-  "Busca contatos da empresa pelo nome ou email usando a API de busca do Zoom (server-side, funciona bem em organizações grandes).",
-  searchCompanyContactsSchema, searchCompanyContacts);
-
 tool("zoom_list_sessions",
   "Lista as sessões/conversas recentes do Zoom Team Chat (canais e DMs com atividade recente).",
   listSessionsSchema, listSessions);
-
-// ─── Bookmarks, mensagens fixadas e espaços ───────────────────────────────────
-
-tool("zoom_list_bookmarks",
-  "Lista os bookmarks (favoritos) do Zoom Team Chat. Pode filtrar por canal específico ou listar todos os bookmarks do usuário.",
-  listBookmarksSchema, listBookmarks);
-
-tool("zoom_list_pinned_messages",
-  "Lista as mensagens fixadas (pinned) de um canal do Zoom Team Chat.",
-  listPinnedMessagesSchema, listPinnedMessages);
-
-tool("zoom_list_shared_spaces",
-  "Lista os espaços compartilhados (Zoom Spaces) do usuário no Zoom Team Chat.",
-  listSharedSpacesSchema, listSharedSpaces);
 
 // ─── Start ────────────────────────────────────────────────────────────────────
 
