@@ -34,7 +34,6 @@ Na tela seguinte, você verá o **Client ID** e o **Client Secret** na seção *
 
 - Copie e guarde os dois valores — você vai precisar deles logo
 - Não compartilhe essas credenciais com ninguém
-- ⚠️ **Atenção ao copiar o Client Secret:** algumas fontes mostram `l` (L minúsculo) e `I` (i maiúsculo) de forma quase idêntica. Copie sempre diretamente do campo — nunca redigite manualmente.
 
 ### 4. Configurar o Redirect URI
 
@@ -108,7 +107,6 @@ Esses dois valores (Client ID e Client Secret) são o que o instalador vai pedir
 
 **"Invalid client_id or client_secret"**
 → As credenciais foram copiadas com espaço ou caractere extra. Copie novamente direto do campo no Marketplace.
-→ Verifique também se não confundiu `l` (L minúsculo) com `I` (i maiúsculo) no Client Secret — eles são visualmente muito parecidos em algumas fontes.
 
 **Não encontro "User-managed app" na lista de tipos**
 → O Zoom renomeou para **General App**. Escolha essa opção e, na etapa seguinte, selecione **User-managed** como modo de gestão.

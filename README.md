@@ -34,15 +34,16 @@ Siga esta sequência sem pular etapas:
 
    OPÇÃO AUTOMÁTICA (Claude in Chrome):
    - Leia o guia acima e execute cada passo no navegador
-   - Ao final, informe o Client ID e o Client Secret que aparecerem na
-     tela App Credentials
+   - Ao final, peça para o usuário copiar e colar no chat o Client ID
+     e o Client Secret exatamente como aparecem na tela App Credentials
+     (sem redigitar)
 
    OPÇÃO MANUAL (orientação passo a passo):
    - Leia o guia acima e me instrua a seguir cada passo
-   - Aguarde eu confirmar que tenho o Client ID e o Client Secret
-     antes de continuar
+   - Quando chegar na tela App Credentials, peça para eu copiar e colar
+     no chat o Client ID e o Client Secret antes de continuar
 
-3. Com o Client ID e o Client Secret em mãos (de qualquer opção acima),
+3. Com o Client ID e o Client Secret colados no chat (de qualquer opção acima),
    rode no terminal exatamente:
 
    claude mcp add zoom -s user \
